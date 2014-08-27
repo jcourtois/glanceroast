@@ -30,8 +30,10 @@ class ListImageFiltersTest(ImagesFixture):
         # First image
         cls.first_image_name = rand_name('image')
         resp = cls.images_client.create_image(
-            name=cls.first_image_name, container_format=ImageContainerFormat.BARE,
-            disk_format=ImageDiskFormat.QCOW2, protected=False, min_disk=20, min_ram=512)
+            name=cls.first_image_name,
+            container_format=ImageContainerFormat.BARE,
+            disk_format=ImageDiskFormat.QCOW2, protected=False,
+            min_disk=20, min_ram=512)
         cls.image = resp.entity
         cls.resources.add(cls.image.id_, cls.images_client.delete_image)
         cls.first_image = cls.images_client.get_image(cls.image.id_).entity
@@ -39,49 +41,52 @@ class ListImageFiltersTest(ImagesFixture):
         # Second image
         cls.second_image_name = rand_name('test')
         resp = cls.images_client.create_image(
-            name=cls.second_image_name, container_format=ImageContainerFormat.AMI,
-            disk_format=ImageDiskFormat.VDI, protected=False, min_disk=60, min_ram=1024)
+            name=cls.second_image_name,
+            container_format=ImageContainerFormat.AMI,
+            disk_format=ImageDiskFormat.VDI, protected=False,
+            min_disk=60, min_ram=1024)
         cls.image = resp.entity
         cls.resources.add(cls.image.id_, cls.images_client.delete_image)
         cls.second_image = cls.images_client.get_image(cls.image.id_).entity
 
     def test_filter_images_by_name(self):
-        """Verify that a list of images can be filtered by the image name."""
-        images = self.images_client.list_images(name=self.first_image_name).entity
+        """Verify a list of images can be filtered by the image name."""
+        images = self.images_client.list_images(
+            {"name": self.first_image_name}).entity
         self.assertIn(self.first_image, images)
         self.assertNotIn(self.second_image, images)
 
     def test_filter_images_by_container_format(self):
-        """Verify that a list of images can be filtered by the container format."""
+        """Verify a list of images can be filtered by the container format."""
         images = self.images_client.list_images(
-            container_format=ImageContainerFormat.AMI).entity
+            {"container_format": ImageContainerFormat.AMI}).entity
         self.assertIn(self.second_image, images)
         self.assertNotIn(self.first_image, images)
 
     def test_filter_images_by_disk_format(self):
-        """Verify that a list of images can be filtered by the disk format."""
+        """Verify a list of images can be filtered by the disk format."""
         images = self.images_client.list_images(
-            disk_format=ImageDiskFormat.QCOW2).entity
+            {"disk_format": ImageDiskFormat.QCOW2}).entity
         self.assertIn(self.first_image, images)
         self.assertNotIn(self.second_image, images)
 
     def test_filter_images_by_status(self):
-        """Verify that a list of images can be filtered by the image status."""
+        """Verify a list of images can be filtered by the image status."""
         images = self.images_client.list_images(
-            status=ImageStatus.QUEUED).entity
+            {"status": ImageStatus.QUEUED}).entity
         self.assertIn(self.first_image, images)
         self.assertIn(self.second_image, images)
 
     def test_filter_images_by_min_disk(self):
-        """Verify that a list of images can be filtered by the image min disk."""
+        """Verify a list of images can be filtered by the image min disk."""
         images = self.images_client.list_images(
-            min_disk=20).entity
+            {"min_disk": 20}).entity
         self.assertIn(self.first_image, images)
         self.assertNotIn(self.second_image, images)
 
     def test_filter_images_by_min_ram(self):
-        """Verify that a list of images can be filtered by the image min RAM."""
+        """Verify a list of images can be filtered by the image min RAM."""
         images = self.images_client.list_images(
-            min_ram=1024).entity
+            {"min_ram": 1024}).entity
         self.assertNotIn(self.first_image, images)
         self.assertIn(self.second_image, images)
