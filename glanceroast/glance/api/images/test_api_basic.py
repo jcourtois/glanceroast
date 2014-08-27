@@ -15,7 +15,7 @@ limitations under the License.
 """
 
 from cafe.drivers.unittest.decorators import tags
-from cloudroast.glance.fixtures import ImagesFixture
+from glanceroast.glance.fixtures import ImagesFixture
 
 
 class ImagesAPIBasicTest(ImagesFixture):

@@ -16,7 +16,7 @@ limitations under the License.
 
 from cloudcafe.images.common.types import (
     ImageContainerFormat, ImageDiskFormat, ImageStatus)
-from cloudroast.glance.fixtures import ComputeIntegrationFixture
+from glanceroast.glance.fixtures import ComputeIntegrationFixture
 from cloudcafe.common.tools.datagen import rand_name
 
 

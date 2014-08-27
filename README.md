@@ -58,11 +58,5 @@ Basic CloudRoast Package Anatomy
 -------------------------------
 Below is a short description of the top level CloudRoast Packages.
 
-##cloudroast
+##glanceroast
 This is the root package for all automated tests. This is namespace is currently **required** by the cafe-runner for any Test Repository plug-in.
-
-##identity
-OpenStack Identity Service cafe-runner plug-in test cases. 
-
-##compute
-OpenStack Compute Service cafe-runner plug-in test cases. 
