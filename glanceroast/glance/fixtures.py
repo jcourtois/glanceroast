@@ -127,6 +127,7 @@ class ComputeIntegrationFixture(ImagesFixture):
         cls.compute_images_client = ComputeImagesClient(**client_args)
         cls.keypairs_client = KeypairsClient(**client_args)
         cls.server_behaviors = ServerBehaviors(cls.servers_client,
+                                               cls.compute_images_client,
                                                cls.servers_config,
                                                cls.images_config,
                                                cls.flavors_config)
