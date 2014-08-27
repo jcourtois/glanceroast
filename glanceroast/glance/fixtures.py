@@ -34,6 +34,8 @@ from cloudcafe.compute.servers_api.behaviors import ServerBehaviors
 from cloudcafe.compute.images_api.behaviors import ImageBehaviors
 from cloudcafe.compute.flavors_api.config import FlavorsConfig
 from cloudcafe.compute.servers_api.config import ServersConfig
+from cloudcafe.compute.extensions.security_groups_api.config import \
+    SecurityGroupsConfig
 
 
 class ImagesFixture(BaseTestFixture):
@@ -98,6 +100,7 @@ class ComputeIntegrationFixture(ImagesFixture):
         cls.servers_config = ServersConfig()
         cls.compute_endpoint = ComputeEndpointConfig()
         cls.marshalling = MarshallingConfig()
+        cls.security_groups_config = SecurityGroupsConfig()
 
         cls.flavor_ref = cls.flavors_config.primary_flavor
 
@@ -130,7 +133,9 @@ class ComputeIntegrationFixture(ImagesFixture):
                                                cls.compute_images_client,
                                                cls.servers_config,
                                                cls.images_config,
-                                               cls.flavors_config)
+                                               cls.flavors_config,
+                                               security_groups_config=
+                                               cls.security_groups_config)
         cls.image_behaviors = ImageBehaviors(cls.compute_images_client,
                                              cls.servers_client,
                                              cls.images_config)
